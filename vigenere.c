@@ -1,69 +1,54 @@
 #include <stdio.h>
-#include <cs50.h>
+#include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <stdlib.h>
+#include <cs50.h>
 
-int     main(int argc, string argv[])
+bool is_valid_k(string k)
 {
-    if (argc != 2)
+    for (int i = 0; i < strlen(k); i++)
     {
-        printf("Place enter key like that: ./vigener key\n");
-    }
-    if (argc == 2)
-    {
-        for (int i = 0; i < strlen[1]; i++)
+        if (!isalpha(k[i]))
         {
-             if ((isupper(argv[1][i] || islower(argv[1][i]))))
-             {
-                else
-                {
-                    printf("%c", argv[1][i]);
-                    printf("This char is wrong! plase dont enter numbers or symbols");
-                    return 0;
-                }
-             }
-             string plaintext = get_string("Plainf text: ");
-             printf("Cypertext: ");
-             int c = 0;
-             for (int k = 0; k < strlen(plaintext); k++)
-             {
-                if (c == strlen(argv[1][i]))
-                {
-                    c = 0;
-                }
-                if (isupper(plaintext[k]) && isupper([argv[1][k]]))
-                {
-                    printf("c", ((int)(plaintext[k]) - 65 + ((int)(argv[1][k]) - 65) % 26 + 65));
-                    c++;
-                }
-                if (isupper(plaintext[k]) && isupper([argv[1][k]]))
-                {
-                    printf("c", ((int)(plaintext[k]) - 65 + ((int)(argv[1][k]) - 97) % 26 + 65));
-                    c++;
-                }
-                if (islower(plaintext[k]) && isupper([argv[1][k]]))
-                {
-                    printf("c", ((int)(plaintext[k]) - 97 + ((int)(argv[1][k]) - 65) % 26 + 97));
-                    c++;
-                }
-                if (islower(plaintext[k]) && islower([argv[1][k]]))
-                {
-                    printf("c", ((int)(plaintext[k]) - 97 + ((int)(argv[1][k]) - 97) % 26 + 97));
-                    c++;
-                }
-                else{
-                    printf("%c", plaintext[k]);
-                    c = 0;
-                }
-                
-                
-             }
-             
-             
+            return false;
         }
-        
     }
-    
-    
+
+    return true;
+}
+
+int main(int argc, string args[])
+{
+    if (argc != 2 || !is_valid_k(args[1]))
+    {
+        printf("Usage: ./vigenere k\n");
+        return 1;
+    }
+
+    string k = args[1];
+    string plaintext = get_string("plaintext: ");
+    int k_len = strlen(k);
+
+    printf("ciphertext: ");
+
+    for (int i = 0, j = 0, n = strlen(plaintext); i < n; i++)
+    {
+        if (!isalpha(plaintext[i]))
+        {
+            printf("%c", plaintext[i]);
+            continue;
+        }
+
+        int ascii_offset = isupper(plaintext[i]) ? 65 : 97;
+
+        int pi = plaintext[i] - ascii_offset;
+        int kj = toupper(k[j % k_len]) - 65;
+        int ci = (pi + kj) % 26;
+        j++;
+
+        printf("%c", ci + ascii_offset);
+    }
+
+    printf("\n");
+    return 0;
 }
