@@ -1,4 +1,4 @@
-while True:         #ask user for input, keep trying for wrong entries
+while True:     #ask user for input, keep trying for wrong entries
   try:
     c = float (input ("Change owed: "))
   except ValueError:
@@ -6,7 +6,7 @@ while True:         #ask user for input, keep trying for wrong entries
   if c < 0:
     continue
 
-  else:   #assign variables for coins, solve the math
+  else:     #assign variables for coins, solve the math
     cents = round (c * 100)
     quarters = int (cents/25)
     dimes = int ((cents - (quarters * 25)) / 10)
