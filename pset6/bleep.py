@@ -47,7 +47,7 @@ def main():
 
                 # making a censored copy of the word
                 copy = censorList[j]
-                copyLength = len(cosspy)
+                copyLength = len(copy)
                 copy = ""
                 print(f"copy: {copyLength}")
 
